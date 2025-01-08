@@ -30,4 +30,6 @@ class MenuPrincipal:
             print("Error loading background image")
 
     def run(self):
-        self.root.mainloop()
+        if __name__ == "__main__":
+            self = MenuPrincipal()
+            self.root.mainloop()
