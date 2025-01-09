@@ -13,10 +13,10 @@ class MenuPrincipal:
 
     def setup_window(self):
         self.root.title("Menu Principal")
-        self.root.geometry("1380x900")
+        self.root.geometry("800x450")
         self.root.resizable(False, False)
-        self.canvas_width = 1380
-        self.canvas_height = 900
+        self.canvas_width = 800
+        self.canvas_height = 450
         self.canvas = tk.Canvas(self.root, width=self.canvas_width, height=self.canvas_height)
         self.canvas.pack()
 
@@ -30,6 +30,4 @@ class MenuPrincipal:
             print("Error loading background image")
 
     def run(self):
-        if __name__ == "__main__":
-            self = MenuPrincipal()
-            self.root.mainloop()
+        self.root.mainloop()
