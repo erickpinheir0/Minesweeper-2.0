@@ -9,6 +9,8 @@ class MenuPrincipal:
         self.root = tk.Tk()
         self.setup_window()
         self.setup_background()
+        self.images_definition()
+        self.images_moving()
         self.run()
 
     def setup_window(self):
@@ -23,11 +25,38 @@ class MenuPrincipal:
 
     def setup_background(self):
         try:
-            self.background_image = PhotoImage(file="GUI\images\minesweeper_background.png")
-            self.background_label = tk.Label(self.root, image=self.background_image)
-            self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
+            self.background_image = PhotoImage(file="GUI/images/minesweeper_background.png")
+            # Exibir a imagem no Canvas
+            self.canvas.create_image(0, 0, image=self.background_image, anchor=tk.NW)
         except:
             print("Error loading background image")
+
+    def images_definition(self):
+        try:
+            self.bomba_image = PhotoImage(file="GUI/images/bomba.png")
+            self.bomba_imageID = self.canvas.create_image(5, 5, image=self.bomba_image, anchor=tk.NW)
+
+            self.dx = 10
+            self.dy = 10
+        except:
+            print("Error loading image")
+
+        self.images_moving()
+
+    def images_moving(self):
+        x1, y1, x2, y2 = self.canvas.bbox(self.bomba_imageID)
+
+        # Verificar colisões com as bordas
+        if x1 <= 0 or x2 >= self.canvas_width:  # Colisão horizontal
+            self.dx = -self.dx
+        if y1 <= 0 or y2 >= self.canvas_height:  # Colisão vertical
+            self.dy = -self.dy
+
+        self.canvas.move(self.bomba_imageID, self.dx, self.dy)
+        self.canvas.tag_raise(self.bomba_imageID)
+        self.root.after(200, self.images_moving)
+
+
 
     def run(self):
         self.root.mainloop()
