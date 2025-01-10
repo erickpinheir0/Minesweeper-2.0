@@ -54,7 +54,7 @@ class MenuPrincipal:
 
         self.canvas.move(self.bomba_imageID, self.dx, self.dy)
         self.canvas.tag_raise(self.bomba_imageID)
-        self.root.after(200, self.images_moving)
+        self.root.after(65, self.images_moving)
 
 
 
