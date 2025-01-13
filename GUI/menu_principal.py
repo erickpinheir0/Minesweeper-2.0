@@ -34,17 +34,31 @@ class MenuPrincipal:
     def images_definition(self):
         try:
             self.bomba_image = PhotoImage(file="GUI/images/bomba.png")
-            self.bomba_imageID = self.canvas.create_image(5, 5, image=self.bomba_image, anchor=tk.NW)
+            self.bandeira_image = PhotoImage(file="GUI/images/bandeira.png")
+            self.bandeira_imageID1 = self.canvas.create_image(5, 5, image=self.bandeira_image, anchor=tk.NW)
+            self.bandeira_imageID2 = self.canvas.create_image(50, 5, image=self.bandeira_image, anchor=tk.NW)
+            self.bomba_imageID1 = self.canvas.create_image(750, 400, image=self.bomba_image, anchor=tk.NW)
+            self.bomba_imageID2 = self.canvas.create_image(375, 200, image=self.bomba_image, anchor=tk.NW)
 
-            self.dx = 10
-            self.dy = 10
+            self.DXBandeiraID1 = 10
+            self.DYBandeiraID1 = 10
+
+            self.DXBandeiraID2 = 10
+            self.DYBandeiraID2 = 3
+
+            self.DXBombaID1 = 10
+            self.DYBombaID1 = 10
+
+            self.DXBombaID2 = 3
+            self.DYBombaID2 = 10
         except:
             print("Error loading image")
 
         self.images_moving()
 
     def images_moving(self):
-        x1, y1, x2, y2 = self.canvas.bbox(self.bomba_imageID)
+        x1, y1, x2, y2 = self.canvas.bbox(self.bomba_imageID1)
+        x1b, y1b, x2b, y2b = self.canvas.bbox(self.bandeira_imageID1)
 
         # Verificar colisões com as bordas
         if x1 <= 0 or x2 >= self.canvas_width:  # Colisão horizontal
@@ -52,11 +66,22 @@ class MenuPrincipal:
         if y1 <= 0 or y2 >= self.canvas_height:  # Colisão vertical
             self.dy = -self.dy
 
-        self.canvas.move(self.bomba_imageID, self.dx, self.dy)
-        self.canvas.tag_raise(self.bomba_imageID)
+        if x1b <= 0 or x2b >= self.canvas_width:  # Colisão horizontal
+            self.dxb = -self.dxb
+        if y1b <= 0 or y2b >= self.canvas_height:  # Colisão vertical
+            self.dyb = -self.dyb
+
+        
+
+        self.canvas.move(self.bomba_imageID1, self.dx, self.dy)
+        self.canvas.move(self.bomba_imageID2, self.dxb, self.dyb)
+        self.canvas.move(self.bandeira_imageID1, self.dxb, self.dyb)
+        self.canvas.move(self.bandeira_imageID2, self.dxb, self.dyb)
+        self.canvas.tag_raise(self.bomba_imageID1)
+        self.canvas.tag_raise(self.bandeira_imageID1)
         self.root.after(65, self.images_moving)
 
-
+    
 
     def run(self):
         self.root.mainloop()
