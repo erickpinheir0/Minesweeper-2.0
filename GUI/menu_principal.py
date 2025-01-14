@@ -11,6 +11,7 @@ class MenuPrincipal:
         self.setup_background()
         self.images_definition()
         self.images_moving()
+        self.create_buttons()
         self.run()
 
     def setup_window(self):
@@ -57,31 +58,62 @@ class MenuPrincipal:
         self.images_moving()
 
     def images_moving(self):
-        x1, y1, x2, y2 = self.canvas.bbox(self.bomba_imageID1)
-        x1b, y1b, x2b, y2b = self.canvas.bbox(self.bandeira_imageID1)
+        x1A1, y1A1, x2A1, y2A1 = self.canvas.bbox(self.bomba_imageID1)
+        x1A2, y1A2, x2A2, y2A2 = self.canvas.bbox(self.bomba_imageID2)
+        x1B1, y1B1, x2B1, y2B1 = self.canvas.bbox(self.bandeira_imageID1)
+        x1B2, y1B2, x2B2, y2B2 = self.canvas.bbox(self.bandeira_imageID2)
 
         # Verificar colisões com as bordas
-        if x1 <= 0 or x2 >= self.canvas_width:  # Colisão horizontal
-            self.dx = -self.dx
-        if y1 <= 0 or y2 >= self.canvas_height:  # Colisão vertical
-            self.dy = -self.dy
+        if x1A1 <= 0 or x2A1 >= self.canvas_width:  # Colisão horizontal
+            self.DXBombaID1 = -self.DXBombaID1
+        if y1A1 <= 0 or y2A1 >= self.canvas_height:  # Colisão vertical
+            self.DYBombaID1 = -self.DYBombaID1
 
-        if x1b <= 0 or x2b >= self.canvas_width:  # Colisão horizontal
-            self.dxb = -self.dxb
-        if y1b <= 0 or y2b >= self.canvas_height:  # Colisão vertical
-            self.dyb = -self.dyb
+        if x1A2 <= 0 or x2A2 >= self.canvas_width:  # Colisão horizontal
+            self.DXBombaID2 = -self.DXBombaID2
+        if y1A2 <= 0 or y2A2 >= self.canvas_height:  # Colisão vertical
+            self.DYBombaID2 = -self.DYBombaID2
 
-        
+        if x1B1 <= 0 or x2B1 >= self.canvas_width:  # Colisão horizontal
+            self.DXBandeiraID1 = -self.DXBandeiraID1
+        if y1B1 <= 0 or y2B1 >= self.canvas_height:  # Colisão vertical
+            self.DYBandeiraID1 = -self.DYBandeiraID1
 
-        self.canvas.move(self.bomba_imageID1, self.dx, self.dy)
-        self.canvas.move(self.bomba_imageID2, self.dxb, self.dyb)
-        self.canvas.move(self.bandeira_imageID1, self.dxb, self.dyb)
-        self.canvas.move(self.bandeira_imageID2, self.dxb, self.dyb)
+        if x1B2 <= 0 or x2B2 >= self.canvas_width:  # Colisão horizontal
+            self.DXBandeiraID2 = -self.DXBandeiraID2
+        if y1B2 <= 0 or y2B2 >= self.canvas_height:  # Colisão vertical
+            self.DYBandeiraID2 = -self.DYBandeiraID2
+
+        self.canvas.move(self.bomba_imageID1, self.DXBombaID1, self.DYBombaID1)
+        self.canvas.move(self.bomba_imageID2, self.DXBombaID2, self.DYBombaID2)
+        self.canvas.move(self.bandeira_imageID1, self.DXBandeiraID1, self.DYBandeiraID1)
+        self.canvas.move(self.bandeira_imageID2, self.DXBandeiraID2, self.DYBandeiraID2)
         self.canvas.tag_raise(self.bomba_imageID1)
         self.canvas.tag_raise(self.bandeira_imageID1)
         self.root.after(65, self.images_moving)
 
-    
+    def create_buttons(self):
+        label = tk.Label(self.root, 
+        text="""MINESWEEPER 2.0 
+        💣💣💣💣💣💣        """, 
+        font=("Algerian", 25), 
+        bg="gray", 
+        fg="black")
+        label.place(relx=0.5, rely=0.13, relwidth=0.45, relheight=0.18, anchor='center')
+
+        button_jogar = tk.Button(self.root, text="Jogar🚩", font=("Algerian", 15), bg="gray", fg="black", command=lambda: self.root.destroy())
+        button_jogar.place(relx=0.5, rely=0.5, relwidth=0.3, relheight=0.1, anchor='center')
+
+        
+
+        button_sair = tk.Button(self.root, text="Sair🚩", font=("Algerian", 15), bg="gray", fg="black", command=lambda: self.root.destroy())
+        button_sair.place(relx=0.5, rely=0.7, relwidth=0.3, relheight=0.1, anchor='center')
+
+    def game_initialization(self):
+        self.root = tk.Tk()
+        self.root.title("Minesweeper")
+        self.root.geometry("800x600")
+        self.root.resizable(False, False)
 
     def run(self):
         self.root.mainloop()
