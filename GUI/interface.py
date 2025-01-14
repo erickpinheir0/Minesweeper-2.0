@@ -8,3 +8,4 @@ class Grid:
         self.row = row
         self.column = column
         self.num_mines = num_mines
+
