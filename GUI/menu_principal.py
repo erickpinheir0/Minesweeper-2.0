@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import PhotoImage
 from tkinter import messagebox
 from tkinter import Canvas
+from GUI.interface import Grid
 
 class MenuPrincipal:
     def __init__(self):
@@ -101,19 +102,16 @@ class MenuPrincipal:
         fg="black")
         label.place(relx=0.5, rely=0.13, relwidth=0.45, relheight=0.18, anchor='center')
 
-        button_jogar = tk.Button(self.root, text="Jogar🚩", font=("Algerian", 15), bg="gray", fg="black", command=lambda: self.root.destroy())
+        button_jogar = tk.Button(self.root, text="Jogar🚩", font=("Algerian", 15), bg="gray", fg="black", command=lambda: self.game_initialization())
         button_jogar.place(relx=0.5, rely=0.5, relwidth=0.3, relheight=0.1, anchor='center')
-
-        
 
         button_sair = tk.Button(self.root, text="Sair🚩", font=("Algerian", 15), bg="gray", fg="black", command=lambda: self.root.destroy())
         button_sair.place(relx=0.5, rely=0.7, relwidth=0.3, relheight=0.1, anchor='center')
 
     def game_initialization(self):
-        self.root = tk.Tk()
-        self.root.title("Minesweeper")
-        self.root.geometry("800x600")
-        self.root.resizable(False, False)
+        self.root.destroy()
+        interface = Grid()
+        interface
 
     def run(self):
         self.root.mainloop()
