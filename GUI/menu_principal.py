@@ -4,6 +4,7 @@ from tkinter import PhotoImage
 from tkinter import messagebox
 from tkinter import Canvas
 from GUI.interface import Grid
+from GUI.regras import Regras
 
 class MenuPrincipal:
     def __init__(self):
@@ -95,18 +96,29 @@ class MenuPrincipal:
 
     def create_buttons(self):
         label = tk.Label(self.root, 
-        text="""MINESWEEPER 2.0 
-        💣💣💣💣💣💣        """, 
-        font=("Algerian", 25), 
+        text="MINESWEEPER 2.0", 
+        font=("Impact", 25, "italic"), 
         bg="gray", 
         fg="black")
         label.place(relx=0.5, rely=0.13, relwidth=0.45, relheight=0.18, anchor='center')
 
-        button_jogar = tk.Button(self.root, text="Jogar🚩", font=("Algerian", 15), bg="gray", fg="black", command=lambda: self.game_initialization())
+        fonts_buttons = ("Impact", 15, "italic")
+
+        bombs = tk.Label(self.root, text="💣💣💣💣💣💣", font=("Arial", 25), bg="gray", fg="black")
+        bombs.place(relx=0.5, rely=0.23, relwidth=0.3, relheight=0.1, anchor='center')
+
+        button_jogar = tk.Button(self.root, text="Jogar🚩", font=fonts_buttons, bg="gray", fg="black", command=lambda: self.game_initialization())
         button_jogar.place(relx=0.5, rely=0.5, relwidth=0.3, relheight=0.1, anchor='center')
 
-        button_sair = tk.Button(self.root, text="Sair🚩", font=("Algerian", 15), bg="gray", fg="black", command=lambda: self.root.destroy())
+        button_regras = tk.Button(self.root, text="Regras🚩", font=fonts_buttons, bg="gray", fg="black", command=lambda: self.mostrar_regras())
+        button_regras.place(relx=0.5, rely=0.6, relwidth=0.3, relheight=0.1, anchor='center')
+
+        button_sair = tk.Button(self.root, text="Sair🚩", font=fonts_buttons, bg="gray", fg="black", command=lambda: self.root.destroy())
         button_sair.place(relx=0.5, rely=0.7, relwidth=0.3, relheight=0.1, anchor='center')
+
+    def mostrar_regras(self):
+        regras = Regras()
+        regras
 
     def game_initialization(self):
         self.root.destroy()
