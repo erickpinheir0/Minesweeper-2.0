@@ -110,8 +110,8 @@ class MenuPrincipal:
         button_jogar = tk.Button(self.root, text="Jogar🚩", font=fonts_buttons, bg="gray", fg="black", command=lambda: self.game_initialization())
         button_jogar.place(relx=0.5, rely=0.5, relwidth=0.3, relheight=0.1, anchor='center')
 
-        button_regras = tk.Button(self.root, text="Regras🚩", font=fonts_buttons, bg="gray", fg="black", command=lambda: self.mostrar_regras())
-        button_regras.place(relx=0.5, rely=0.6, relwidth=0.3, relheight=0.1, anchor='center')
+        self.button_regras = tk.Button(self.root, text="Regras🚩", font=fonts_buttons, bg="gray", fg="black", command=lambda: self.mostrar_regras())
+        self.button_regras.place(relx=0.5, rely=0.6, relwidth=0.3, relheight=0.1, anchor='center')
 
         button_sair = tk.Button(self.root, text="Sair🚩", font=fonts_buttons, bg="gray", fg="black", command=lambda: self.root.destroy())
         button_sair.place(relx=0.5, rely=0.7, relwidth=0.3, relheight=0.1, anchor='center')
@@ -119,6 +119,11 @@ class MenuPrincipal:
     def mostrar_regras(self):
         regras = Regras()
         regras
+        self.disable_button_regras()
+
+    def disable_button_regras(self):
+        self.button_regras.config(state="disabled")
+
 
     def game_initialization(self):
         self.root.destroy()
