@@ -11,7 +11,7 @@ class Regras(tk.Toplevel):
 
     def setup_window(self):
         self.title("Regras")
-        self.geometry("400x600")
+        self.geometry("450x650")
         self.resizable(False, False)
         self.canvas_width = 400
         self.canvas_height = 600
