@@ -127,7 +127,7 @@ class MenuPrincipal:
 
     def game_initialization(self):
         self.root.destroy()
-        interface = Grid()
+        interface = Grid(9, 9, 10)
         interface
 
     def run(self):
