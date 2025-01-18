@@ -117,12 +117,11 @@ class MenuPrincipal:
         button_sair.place(relx=0.5, rely=0.7, relwidth=0.3, relheight=0.1, anchor='center')
 
     def mostrar_regras(self):
-        regras = Regras()
-        regras
-        self.disable_button_regras()
-
-    def disable_button_regras(self):
         self.button_regras.config(state="disabled")
+        self.regras = Regras()
+        self.regras.wait_window()
+        self.regras.destroy()
+        self.button_regras.config(state="normal")
 
 
     def game_initialization(self):
