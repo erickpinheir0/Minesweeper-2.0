@@ -1,4 +1,3 @@
-from re import X
 import tkinter as tk
 import random
 from Core.state_cells import Cell
@@ -13,6 +12,7 @@ class Grid:
         self.rows = rows
         self.columns = columns
         self.has_mines = has_mines
+        self.mines_positions = None
         self.setup_window()
         self.create_grid()
         self.create_numbers()
@@ -43,6 +43,7 @@ class Grid:
         self.lista_linhas = []
         self.lista_colunas = []
 
+
         #Cria o tabuleiro, com base nas linhas e colunas, e no espaçamento calculado
         for i in range(self.rows):
             for j in range(self.columns):
@@ -60,6 +61,14 @@ class Grid:
                 self.lista_linhas.append(self.r)
                 self.lista_colunas.append(self.c)
         
+
+    def pixel_to_cell(self, pixel_coords):
+        x, y = pixel_coords
+        offset_x = (self.canvas_width - self.columns * 50) // 2
+        offset_y = (self.canvas_height - self.rows * 50) // 2
+        cell_x = (x - offset_x) // 50
+        cell_y = (y - offset_y) // 50
+        return cell_x, cell_y
 
 
     def create_numbers(self):
@@ -80,19 +89,27 @@ class Grid:
                 fill="black",
                 font=("Arial", 15)
             )
-        clique = self.canvas.bind("<Button-1>", self.clique)
-        
+        self.canvas.bind("<Button-1>", self.clique)
 
     def clique(self, event):
-        linha = event.y 
-        coluna = event.x 
-        first_click = (linha, coluna)
+        cell = self.pixel_to_cell((event.x, event.y))
 
-        self.generate_mines(first_click)
+        if cell:
+            self.first_click = cell
+            print(f"First click: {cell}")
+            if not self.mines_positions:
+                self.generate_mines(cell)
+
 
     def generate_mines(self, first_click):
-        all_positions = [(r, c) for r in range(self.lista_linhas) for c in range(self.lista_colunas)]
-        all_positions.remove(first_click)
+
+        all_positions = [(r, c) for r in range(self.rows) for c in range(self.columns)]
+
+        if first_click in all_positions:
+            all_positions.remove(first_click)
+        else:
+            print(f"Erro: {first_click} não está em all_positions.")
+            return
 
         self.mines_positions = random.sample(all_positions, self.has_mines)
 
