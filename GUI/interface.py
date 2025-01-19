@@ -101,7 +101,9 @@ class Grid:
             print(f"First click: {cell}")
             if not self.mines_positions:
                 self.generate_mines(cell)
-                self.start_time()
+        
+        verificar = Verifica(self.first_click, self.mines_positions)
+        verificar
 
     def generate_mines(self, first_click):
 
@@ -114,6 +116,7 @@ class Grid:
             return
 
         self.mines_positions = random.sample(all_positions, self.has_mines)
+        self.start_time()
 
         for r, c in self.mines_positions:
             self.board[r][c].is_mine = True
@@ -150,13 +153,13 @@ class Grid:
 
         for r in range(self.rows):
             for c in range(self.columns):
-                if self.board[r][c].has_mine:
+                if self.board[r][c].is_mine:
                     continue
                 count = 0
                 for dr, dc in directions:
                     nr, nc = r + dr, c + dc
                     if 0 <= nr < self.rows and 0 <= nc < self.columns:
-                        if self.board[nr][nc].has_mine:
+                        if self.board[nr][nc].is_mine:
                             count += 1
                 self.board[r][c].adjacent_mines = count
 
