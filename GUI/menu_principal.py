@@ -12,7 +12,7 @@ class MenuPrincipal:
         self.setup_window()
         self.setup_background()
         self.images_definition()
-        self.images_moving()
+        self.update_images()
         self.create_buttons()
         self.run()
 
@@ -57,7 +57,6 @@ class MenuPrincipal:
         except:
             print("Error loading image")
 
-        self.images_moving()
 
     def images_moving(self):
         x1A1, y1A1, x2A1, y2A1 = self.canvas.bbox(self.bomba_imageID1)
@@ -92,7 +91,12 @@ class MenuPrincipal:
         self.canvas.move(self.bandeira_imageID2, self.DXBandeiraID2, self.DYBandeiraID2)
         self.canvas.tag_raise(self.bomba_imageID1)
         self.canvas.tag_raise(self.bandeira_imageID1)
-        self.root.after(65, self.images_moving)
+        self.canvas.tag_raise(self.bomba_imageID2)
+        self.canvas.tag_raise(self.bandeira_imageID2)
+
+    def update_images(self):
+        self.images_moving()
+        self.root.after(33, self.update_images)
 
     def create_buttons(self):
         label = tk.Label(self.root, 
@@ -125,6 +129,7 @@ class MenuPrincipal:
 
 
     def game_initialization(self):
+        self.root.after_cancel(self.update_images)
         self.root.destroy()
         interface = Grid(9, 9, 10)
         interface
