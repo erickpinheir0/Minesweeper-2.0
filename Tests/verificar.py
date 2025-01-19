@@ -12,3 +12,15 @@ class Verifica:
         self.victory()
         #mostra derrota
         self.defeat()
+
+    def verificar_condicao(self):
+
+        pass
+
+    def victory(self):
+
+        pass
+
+    def defeat(self):
+
+        pass
