@@ -58,7 +58,7 @@ class Grid:
                     fill="darkred", 
                     outline="black", 
                     width=2, 
-                    tags=f"cell_{i}_{j}")
+                    tags=f"({i}, {j})")
                 self.r = i
                 self.c = j
                 self.lista_linhas.append(self.r)
@@ -102,8 +102,7 @@ class Grid:
             if not self.mines_positions:
                 self.generate_mines(cell)
         
-        verificar = Verifica(self.first_click, self.mines_positions)
-        verificar
+        Verifica(self.first_click, self.mines_positions)
 
     def generate_mines(self, first_click):
 
