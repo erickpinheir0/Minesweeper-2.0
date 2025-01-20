@@ -1,33 +1,30 @@
 import tkinter as tk
 from Core.state_cells import Cell
-from Tests.revelacao import Revelar
 from tkinter import ttk
 from tkinter import PhotoImage
 from tkinter import messagebox
 from tkinter import Canvas
 
 class Verifica:
-    def __init__(self, first_click, mines_positions):
+    def __init__(self, first_click, mines_positions, free_cells):
         self.first_click =  first_click
         self.mines_positions = mines_positions
+        self.free_cells = free_cells
         self.condition_cell = Cell()
         #verifica condição de vitória
-        self.verificar_condicao(self.first_click, self.mines_positions)
 
+    def verificar_condicao(self, first_click, mines_positions, cells_revealed, free_cells):
 
-    def verificar_condicao(self, first_click, mines_positions):
+        print(free_cells)
+        print(cells_revealed)
 
         if first_click in mines_positions:
             self.defeat()
-        elif first_click not in mines_positions:
-            self.condition_cell.state_cells = "revealed"
-            revelar = Revelar()
-            revelar.revelar_celula(first_click)
-
+        elif set(cells_revealed) == set(free_cells):
+                self.victory()
 
     def victory(self):
-
-        pass
+        messagebox.showinfo("Vitoria", "Venceu o jogo!")
 
     def defeat(self):
         messagebox.showinfo("Derrota", "Perdeu o jogo!")
