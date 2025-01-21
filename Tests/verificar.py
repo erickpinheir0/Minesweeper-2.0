@@ -17,10 +17,11 @@ class Verifica:
 
         print(free_cells)
         print(cells_revealed)
+        results_cells_revealed = list(set(cells_revealed))
 
         if first_click in mines_positions:
             self.defeat()
-        elif set(cells_revealed) == set(free_cells):
+        elif set(results_cells_revealed) == set(free_cells):
                 self.victory()
 
     def victory(self):

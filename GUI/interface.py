@@ -20,6 +20,7 @@ class Grid:
         self.board = [[Cell() for _ in range(self.columns)] for _ in range(self.rows)]
         self.free_cells = [ ]
         self.cells_revealed = []
+        self.results_cells_revealed = []
         self.run()
 
     def setup_window(self):
@@ -106,8 +107,9 @@ class Grid:
 
         self.free_cells = [cell for cell in self.all_positions if cell not in self.mines_positions]
         self.cells_revealed.append(cell)
-        Revelar(self.first_click, self.mines_positions, self.free_cells, self.cells_revealed)
-        Verifica(self.first_click, self.mines_positions, self.free_cells)
+        [self.results_cells_revealed.append(cell) for cell in self.cells_revealed if cell not in self.results_cells_revealed]
+        Revelar(self.first_click, self.mines_positions, self.free_cells, self.results_cells_revealed)
+        Verifica(self.first_click, self.mines_positions, self.free_cells, self.results_cells_revealed)
 
     def generate_mines(self, first_click):
 
